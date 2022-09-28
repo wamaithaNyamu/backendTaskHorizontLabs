@@ -29,7 +29,7 @@ const checkIfPalindrome = async (minNumber,maxNumber)=>{
 }
 
 
-const checkIfPrime = (maxNumber ,minNum) => {
+const checkIfPrime = async (maxNumber ,minNum) => {
     // implements the sieve of Eratosthenes algorithm
 
     const primeArrays = [] // will hold all the prime nums
@@ -57,33 +57,43 @@ const checkIfPrime = (maxNumber ,minNum) => {
 // @access public
 export const computePalindromePrime = async(req, res) => {
     try{
-
-
-        console.log(req.body)
-        const { minNumber, maxNumber, feature } = req.body
-
         const startTime =performance.now()
-        const palindromeArray = await  checkIfPalindrome(minNumber,maxNumber)
-       // const primeArray = await  checkIfPrime(minNumber,maxNumber)
-        const primeArray = checkIfPrime(maxNumber , minNumber)
-        const data = [{
-            palindromeArray,
-            primeArray
-        } ]
+
+        const { minNumber, maxNumber, feature } = req.body
+        let data = []
+        let primeArray = []
+        let palindromeArray = []
+        const palindrome_feature = feature.includes('palindrome')
+        const prime_feature =feature.includes('prime')
+
+        if (palindrome_feature){
+             palindromeArray = await  checkIfPalindrome(minNumber,maxNumber)
+             data = [...palindromeArray]
+        }
+
+        if (prime_feature){
+             primeArray = await checkIfPrime(maxNumber , minNumber)
+             data = [...primeArray]
+        }
+
+        if (palindrome_feature && prime_feature){
+            // merge both arrays
+            const both_palindrome_prime = primeArray.filter(function(val) {
+                return palindromeArray.indexOf(val) !== -1;
+            });
+            data = [...both_palindrome_prime]
+        }
 
         const endTime =performance.now()
         const timeOfExecution = endTime - startTime
 
-        console.log("Call to computePalindromePrime took " + timeOfExecution + " milliseconds.")
-        console.log(primeArray)
-        console.log("-" * 100)
-        console.log(palindromeArray)
-
         res.json({
+            data,
            timeOfExecution
-        })
+          })
+
+
     }catch (e) {
-        console.error(`Error while trying to check computePalindromePrime {e}`)
 
         res.status(503).send({
             message: `Something went wrong while trying to create computePalindromePrime. Contact admin  ${e}`

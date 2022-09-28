@@ -59,15 +59,23 @@ export const computePalindromePrime = async(req, res) => {
 
         const { minNumber, maxNumber, feature } = req.body
 
+
         // validations on the body
+
+        //both minNumber and maxNumber must be int
+        if (Number.isInteger(minNumber) || Number.isInteger(maxNumber)) throw Error("minNumber and maxNumber must be  integers")
+
+        // minNumber must be greater than 0
         if (minNumber <= 0) throw Error("The minimum number must be greater than 0")
+
 
         const palindrome_feature = feature.includes('palindrome')
         const prime_feature = feature.includes('prime')
 
+        // check if features supplied are palindrome or prime
         if(!palindrome_feature && !prime_feature) throw Error("Features can only only contain  ['palindrome'] or ['prime'] or ['palindrome','prime']")
 
-        let data = []
+        let data = [] // hold returned data array
         let primeArray = []
         let palindromeArray = []
 

@@ -1,62 +1,63 @@
 
-const check_if_palindrome = async (minNumber,maxNumber)=>{
+const checkIfPalindrome = async (minNumber,maxNumber)=>{
+       console.log("Starting palindrome ")
 
-        const palindromes_array = []
+        const palindromesArray = []
        // check if number is negative or modulus is zero ie number ends with zero
 
         for(let number=minNumber; number<= maxNumber; number++) {
-
             if (number > 0 && number < 10) {
-                palindromes_array.push(number)
+                palindromesArray.push(number)
                 continue
             }
-
-            let half_one = number
-            let half_two = 0
-
-            while (half_one > half_two) {
-                half_two = half_two * 10 + half_one % 10 // need to use the current value of half_one before it is changed
-                half_one = Math.floor(half_one / 10)
+            let halfOne = number
+            let halfTwo = 0
+            while (halfOne > halfTwo) {
+                halfTwo = halfTwo * 10 + halfOne % 10 // need to use the current value of halfOne before it is changed
+                halfOne = Math.floor(halfOne / 10)
             }
-            if (half_one === half_two || half_one === Math.floor(half_two / 10)) {
-                palindromes_array.push(number)
+            if (halfOne === halfTwo || halfOne === Math.floor(halfTwo / 10)) {
+                palindromesArray.push(number)
             }
         }
-        return palindromes_array
+        return palindromesArray
 }
 
 
-const check_if_prime = async (minNumber,maxNumber) => {
+const checkIfPrime = async (minNumber,maxNumber) => {
+    console.log("Starting prime ")
 
-        if(maxNumber < 2 ){
-            return []
-        }
+    let  primesArray = []
+    if (maxNumber < 2) {
+        return primesArray
+    }
 
-        const primes_array = [2]
+   if(minNumber < 3){
+       primesArray =[2]
+       minNumber = 3
+   }
 
-        for(let number=minNumber; number<= maxNumber; number += 2 ) {
-            let is_prime = true
-            const square_root_stop = number**0.5
-            for(let num in primes_array){
+    for (let number = minNumber; number <= maxNumber; number += 2) {
+        let isPrime = true
+        const squareRootStop = number ** 0.5
+        for (let num in primesArray) {
 
-                if(num > square_root_stop){
-                    continue
-                }
-
-                if (number% num === 0){
-                    is_prime = false
-                }
+            if (num > squareRootStop) {
+                continue
             }
-
-            if (is_prime){
-                primes_array.push(number)
+            if (number % num === 0) {
+                isPrime = false
             }
-
+            if (isPrime) {
+                primesArray.push(number)
+            }
         }
+    }
 
-        return  primes_array
+        return primesArray
 
     }
+
 
 
 
@@ -70,22 +71,28 @@ export const computePalindromePrime = async(req, res) => {
     //   check if palindrome or prime
         console.log(req.body)
         const { minNumber, maxNumber, feature} = req.body
+        const startTime =performance.now()
+        const palindromeArray = await  checkIfPalindrome(minNumber,maxNumber)
+        const primeArray = await  checkIfPrime(minNumber,maxNumber)
 
-        const is_palindrome = await  check_if_palindrome(minNumber,maxNumber)
-        const is_prime = await  check_if_prime(minNumber,maxNumber)
-        
+        const data = [{
+            palindromeArray,
+            primeArray
+        } ]
+        const endTime =performance.now()
+        const timeOfExecution = endTime - startTime
 
-        // The API should Return:
-        //     - data (array) should contain all the numbers that are palindromes or primes or that are
-        // palindromes and primes at the same time based on the feature parameter.
-        // - timeOfExecution: (float) time of how long it took to get the results
 
-        res.json(true)
+        console.log("Call to doSomething took " + timeOfExecution + " milliseconds.")
+
+        res.json({
+            data, timeOfExecution
+        })
     }catch (e) {
         console.error(`Error while trying to check computePalindromePrime {e}`)
 
         res.status(503).send({
-            message: `Something went wrong while trying to create Product. Contact admin  ${e}`
+            message: `Something went wrong while trying to create computePalindromePrime. Contact admin  ${e}`
             ,error:e.message
 
         })

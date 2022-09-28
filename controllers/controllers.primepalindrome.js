@@ -1,10 +1,8 @@
 
 const checkIfPalindrome = async (minNumber,maxNumber)=>{
-       console.log("Starting palindrome ")
 
         const palindromesArray = []
        // check if number is negative or modulus is zero ie number ends with zero
-
         for(let number=minNumber; number<= maxNumber; number++) {
 
             if (number > 0 && number < 10) {
@@ -60,11 +58,19 @@ export const computePalindromePrime = async(req, res) => {
         const startTime =performance.now()
 
         const { minNumber, maxNumber, feature } = req.body
+
+        // validations on the body
+        if (minNumber <= 0) throw Error("The minimum number must be greater than 0")
+
+        const palindrome_feature = feature.includes('palindrome')
+        const prime_feature = feature.includes('prime')
+
+        if(!palindrome_feature && !prime_feature) throw Error("Features can only only contain  ['palindrome'] or ['prime'] or ['palindrome','prime']")
+
         let data = []
         let primeArray = []
         let palindromeArray = []
-        const palindrome_feature = feature.includes('palindrome')
-        const prime_feature =feature.includes('prime')
+
 
         if (palindrome_feature){
              palindromeArray = await  checkIfPalindrome(minNumber,maxNumber)
@@ -83,21 +89,18 @@ export const computePalindromePrime = async(req, res) => {
             });
             data = [...both_palindrome_prime]
         }
-
         const endTime =performance.now()
         const timeOfExecution = endTime - startTime
 
         res.json({
             data,
-           timeOfExecution
+            timeOfExecution
           })
-
 
     }catch (e) {
 
         res.status(503).send({
-            message: `Something went wrong while trying to create computePalindromePrime. Contact admin  ${e}`
-            ,error:e.message
+            error:e.message
 
         })
     }

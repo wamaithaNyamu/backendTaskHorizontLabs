@@ -29,40 +29,26 @@ const checkIfPalindrome = async (minNumber,maxNumber)=>{
 }
 
 
-const checkIfPrime = async (minNumber,maxNumber) => {
-    console.log("Starting prime ")
+const checkIfPrime = (maxNumber ,minNum) => {
+    // implements the sieve of Eratosthenes algorithm
 
-    let  primesArray = []
-    if (maxNumber < 2) {
-        return primesArray
-    }
-   if (minNumber % 2 === 0){
-       minNumber = minNumber + 1
-   }
-    for (let number = minNumber; number <= maxNumber; number += 2) {
-         let isPrime = true
-         const squareRootStop = number ** 0.5
+    const primeArrays = [] // will hold all the prime nums
+    const arrayValues = new Array(maxNumber + 1); // initialize arr
 
-        for (let num = 3; num <= number; num ++) {
-                if (num > squareRootStop){
-                    continue
-                }
+    arrayValues.fill(true); // fill array with true values
+    arrayValues[0] = arrayValues[1] = false; // 0 and 1 are not primes by default, we start at 2
 
-                if (number % num === 0) {
-                    isPrime = false
-                    }
-        }
-
-        if (isPrime) {
-            primesArray.push(number)
+    const sqrtStopValue = Math.sqrt(maxNumber)
+    for (let i = 2; i <= sqrtStopValue; i++) {
+        for (let j = 2; i * j <= maxNumber; j++){
+            arrayValues[i * j] = false; // eliminate non primes
         }
     }
 
-    return primesArray
+    for(let i = minNum; i<= maxNumber; i++) !arrayValues[i] && primeArrays.push(i*2+1);
 
-    }
-
-
+    return primeArrays;
+};
 
 
 // @desc compute palindrome and/or prime
@@ -78,8 +64,8 @@ export const computePalindromePrime = async(req, res) => {
 
         const startTime =performance.now()
         const palindromeArray = await  checkIfPalindrome(minNumber,maxNumber)
-        const primeArray = await  checkIfPrime(minNumber,maxNumber)
-
+       // const primeArray = await  checkIfPrime(minNumber,maxNumber)
+        const primeArray = checkIfPrime(maxNumber , minNumber)
         const data = [{
             palindromeArray,
             primeArray
@@ -89,9 +75,12 @@ export const computePalindromePrime = async(req, res) => {
         const timeOfExecution = endTime - startTime
 
         console.log("Call to computePalindromePrime took " + timeOfExecution + " milliseconds.")
+        console.log(primeArray)
+        console.log("-" * 100)
+        console.log(palindromeArray)
 
         res.json({
-            data, timeOfExecution
+           timeOfExecution
         })
     }catch (e) {
         console.error(`Error while trying to check computePalindromePrime {e}`)

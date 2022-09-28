@@ -63,7 +63,7 @@ export const computePalindromePrime = async(req, res) => {
         // validations on the body
 
         //both minNumber and maxNumber must be int
-        if (Number.isInteger(minNumber) || Number.isInteger(maxNumber)) throw Error("minNumber and maxNumber must be  integers")
+        if (!Number.isInteger(minNumber) || !Number.isInteger(maxNumber)) throw Error("minNumber and maxNumber must be  integers")
 
         // minNumber must be greater than 0
         if (minNumber <= 0) throw Error("The minimum number must be greater than 0")

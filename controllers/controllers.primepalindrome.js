@@ -30,8 +30,7 @@ const checkIfPalindrome = async (minNumber,maxNumber)=>{
 const checkIfPrime = async (maxNumber ,minNum) => {
     // implements the sieve of Eratosthenes algorithm
 
-    const primeArrays = [] // will hold all the prime nums
-    let arrayValues = new Array(maxNumber + 1); // initialize arr
+       let arrayValues = new Array(maxNumber + 1); // initialize arr
 
     arrayValues.fill(true); // fill array with true values
     arrayValues[0] = arrayValues[1] = false; // 0 and 1 are not primes by default, we start at 2

@@ -37,7 +37,7 @@ The endpoint takes in three arguments
 The response from the api is:
 - data : (array) should contain all the numbers that are palindromes or primes or that are
   palindromes and primes at the same time based on the feature parameter.
-- timeOfExecution :(float) time of how long it took to get the results
+- timeOfExecution :(float in milliseconds) time of how long it took to get the results
 
 
 

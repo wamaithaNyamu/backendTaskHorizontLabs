@@ -81,6 +81,7 @@ To run this project ensure you have nodejs installed on your system Find instruc
     ```shell
    npm test
    ```
+   ![](images/tests.JPG)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -91,7 +92,7 @@ To run this project ensure you have nodejs installed on your system Find instruc
 
 You can test the endpoint using postman as shown below
 
-![](images/success.JPG)
+   ![](images/success.JPG)
 
 ## Big O and space compelxity
 

@@ -24,28 +24,24 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-This repo implements a REST API endpoint using NodeJs and express. 
 
+## Task description
 
-The endpoint takes in three arguments
-- minNumber
+Build a NodeJS Rest API with ExpressJS. It should be a POST endpoint that is going to
+get these parameters:
+- minNumber (Should be greater than 0 )
 - maxNumber
-- feature
-
-The response from the api is:
-- data : (array) should contain all the numbers that are palindromes or primes or that are
+- feature (should be an array: [“palindrome”, “prime”])
+  The API should Return:
+- data (array) should contain all the numbers that are palindromes or primes or that are
   palindromes and primes at the same time based on the feature parameter.
-- timeOfExecution :(float in milliseconds) time of how long it took to get the results
-
-
-
-
-
+- timeOfExecution: (float) time of how long it took to get the results
+  This task should be runnable locally and pushed to a git repository
+  Make sure you add validations for the endpoint parameters.
+  
 ### Built With
 
-* [Node.js](https://nodejs.org/) Version 16 and NPM version 8
+* [Node.js](https://nodejs.org/) v16.2.0 and NPM v8.3.1
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

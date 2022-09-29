@@ -32,7 +32,7 @@ This repo implements a REST API endpoint using NodeJs and express.
 The endpoint takes in three arguments
 - minNumber
 - maxNumber
-- features
+- feature
 
 The response from the api is:
 - data : (array) should contain all the numbers that are palindromes or primes or that are

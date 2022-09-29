@@ -31,7 +31,7 @@ const checkIfPrime = async (maxNumber ,minNum) => {
     // implements the sieve of Eratosthenes algorithm
 
     const primeArrays = [] // will hold all the prime nums
-    const arrayValues = new Array(maxNumber + 1); // initialize arr
+    let arrayValues = new Array(maxNumber + 1); // initialize arr
 
     arrayValues.fill(true); // fill array with true values
     arrayValues[0] = arrayValues[1] = false; // 0 and 1 are not primes by default, we start at 2
@@ -43,9 +43,17 @@ const checkIfPrime = async (maxNumber ,minNum) => {
         }
     }
 
-    for(let i = minNum; i<= maxNumber; i++) !arrayValues[i] && primeArrays.push(i*2+1);
+   // return primeArrays;
+    return arrayValues.reduce((acc, val, ind) => {
 
-    return primeArrays;
+            if (val && ind >= minNum) {
+                console.log(acc, val, ind)
+                return acc.concat(ind);
+            } else {
+                return acc;
+            };
+
+    },[])
 };
 
 

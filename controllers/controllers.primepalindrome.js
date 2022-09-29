@@ -1,5 +1,5 @@
 
-const checkIfPalindrome = async (minNumber,maxNumber)=>{
+export const checkIfPalindrome = async (minNumber,maxNumber)=>{
 
         const palindromesArray = []
        // check if number is negative or modulus is zero ie number ends with zero
@@ -27,7 +27,7 @@ const checkIfPalindrome = async (minNumber,maxNumber)=>{
 }
 
 
-const checkIfPrime = async (maxNumber ,minNum) => {
+export const checkIfPrime = async (maxNumber ,minNum) => {
     // implements the sieve of Eratosthenes algorithm
 
        let arrayValues = new Array(maxNumber + 1); // initialize arr

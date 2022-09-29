@@ -46,7 +46,7 @@ const checkIfPrime = async (maxNumber ,minNum) => {
     return arrayValues.reduce((acc, val, ind) => {
 
             if (val && ind >= minNum) {
-                console.log(acc, val, ind)
+
                 return acc.concat(ind);
             } else {
                 return acc;
@@ -65,7 +65,6 @@ export const computePalindromePrime = async(req, res) => {
         const startTime =performance.now()
 
         const { minNumber, maxNumber, feature } = req.body
-
 
         // validations on the body
 

@@ -1,6 +1,16 @@
-import {checkIfPrime,checkIfPalindrome} from "../controllers/controllers.primepalindrome.js";
+import {checkIfPrime,checkIfPalindrome,computePalindromePrime} from "../controllers/controllers.primepalindrome.js";
 
 
+test('Find prime numbers between 1 and 10', () => {
+    const expected = [2,3,5,7]
+
+    return checkIfPrime(1,10).then(data => {
+        expect(data).toEqual(
+            expect.arrayContaining(expected),
+        );
+    })
+
+})
 
 test('Find the palindromes between 1 and 10', async () => {
     const expected = [1,2,3,4,5,6,7,8,9]
@@ -36,10 +46,5 @@ test('Find the palindromes between 57 and 1234', async () => {
         expect.arrayContaining(expected),
     );
 });
-
-
-
-
-
 
 

@@ -45,7 +45,7 @@ The response from the api is:
 
 ### Built With
 
-* [Node.js](https://nodejs.org/)
+* [Node.js](https://nodejs.org/) Version 16 and NPM version 8
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -62,6 +62,13 @@ To run this project ensure you have nodejs installed on your system Find instruc
    ```sh
    git clone https://github.com/wamaithanyamu/backendTaskHorizontLabs.git
    ```
+   
+2. Navigate to the project foldler
+   ```shell
+   cd backendTaskHorizontLabs
+
+    ```
+
 2. Install NPM packages
    ```sh
    npm install
@@ -69,6 +76,10 @@ To run this project ensure you have nodejs installed on your system Find instruc
 3. Run server
    ```sh
    npm start
+   ```
+4. Run tests using
+    ```shell
+   npm test
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
